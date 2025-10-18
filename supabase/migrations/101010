@@ -1,0 +1,31 @@
+-- Supprimer et recréer la fonction correctement
+DROP FUNCTION IF EXISTS handle_new_user() CASCADE;
+
+CREATE OR REPLACE FUNCTION handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Insérer dans public.users
+  INSERT INTO public.users (id, email, created_at)
+  VALUES (NEW.id, NEW.email, NOW())
+  ON CONFLICT (id) DO UPDATE SET
+    email = EXCLUDED.email;
+
+  -- Insérer dans user_credits
+  INSERT INTO user_credits (user_id, credits, total_earned, total_spent)
+  VALUES (NEW.id, 0, 0, 0)
+  ON CONFLICT (user_id) DO NOTHING;
+
+  RETURN NEW;
+EXCEPTION WHEN others THEN
+  -- Log l'erreur mais ne pas bloquer l'inscription auth
+  RAISE LOG 'Error in handle_new_user: %', SQLERRM;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Recréer le trigger
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW
+  EXECUTE FUNCTION handle_new_user();

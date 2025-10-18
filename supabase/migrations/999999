@@ -1,0 +1,32 @@
+-- Supprimer l’ancienne fonction et trigger si besoin
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+DROP FUNCTION IF EXISTS public.handle_new_user() CASCADE;
+
+-- Fonction qui insère dans public.users ET user_credits
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Insérer ou mettre à jour le profil utilisateur
+  INSERT INTO public.users (id, email, created_at)
+  VALUES (NEW.id, NEW.email, NOW())
+  ON CONFLICT (id) DO UPDATE SET
+    email = EXCLUDED.email;
+
+  -- Initialiser les crédits
+  INSERT INTO public.user_credits (user_id, credits, total_earned, total_spent)
+  VALUES (NEW.id, 0, 0, 0)
+  ON CONFLICT (user_id) DO NOTHING;
+
+  RETURN NEW;
+EXCEPTION WHEN others THEN
+  -- Log l’erreur mais ne bloque pas l’inscription
+  RAISE LOG 'Error in handle_new_user: %', SQLERRM;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Trigger sur auth.users
+CREATE TRIGGER on_auth_user_created
+AFTER INSERT ON auth.users
+FOR EACH ROW
+EXECUTE FUNCTION public.handle_new_user();

@@ -1,0 +1,8 @@
+CREATE OR REPLACE FUNCTION set_first_listing_at(user_id UUID)
+RETURNS VOID AS $$
+BEGIN
+  UPDATE users
+  SET first_listing_at = NOW()
+  WHERE id = user_id AND first_listing_at IS NULL;
+END;
+$$ LANGUAGE plpgsql;

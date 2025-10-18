@@ -1,0 +1,9 @@
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Public can view user profiles" ON users;
+
+CREATE POLICY "Public can view user profiles"
+  ON users
+  FOR SELECT
+  TO public
+  USING (true);

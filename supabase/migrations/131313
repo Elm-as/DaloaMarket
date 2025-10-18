@@ -1,0 +1,23 @@
+-- Simuler une insertion dans auth.users (pour test)
+-- Remplacez 'test-uuid' par un UUID réel
+DO $$
+DECLARE
+  test_user_id UUID := gen_random_uuid();
+  test_email TEXT := 'oulobotresorelmas@gmail.com';
+BEGIN
+  -- Insérer directement dans public.users (simulation du trigger)
+  INSERT INTO public.users (id, email, created_at)
+  VALUES (test_user_id, test_email, NOW());
+  
+  -- Insérer dans user_credits
+  INSERT INTO user_credits (user_id, credits, total_earned, total_spent)
+  VALUES (test_user_id, 0, 0, 0);
+  
+  RAISE NOTICE 'Test user created successfully with ID: %', test_user_id;
+  
+  -- Nettoyer le test
+  DELETE FROM user_credits WHERE user_id = test_user_id;
+  DELETE FROM public.users WHERE id = test_user_id;
+  
+  RAISE NOTICE 'Test user cleaned up';
+END $$;
