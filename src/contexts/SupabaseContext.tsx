@@ -320,8 +320,12 @@ export const SupabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
       const { error } = await supabase
         .from('users')
-        .update(profile)
-        .eq('id', user.id);
+        .upsert({
+          id: user.id,
+          ...profile
+        }, {
+          onConflict: 'id'
+        });
 
       if (!error) {
         await fetchUserProfile(user.id);
