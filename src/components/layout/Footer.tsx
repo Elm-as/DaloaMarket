@@ -1,140 +1,123 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Mail, Phone, MapPin, Heart, ExternalLink } from 'lucide-react';
+import { Heart, Mail, MapPin, Phone } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gradient-to-br from-grey-900 to-grey-800 text-white mt-auto">
-      <div className="container-custom py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo and Description */}
-          <div className="col-span-1 md:col-span-1">
-            <Link to="/" className="flex items-center mb-4">
-              <div className="h-10 w-10 bg-gradient-to-br from-primary to-primary-600 rounded-xl flex items-center justify-center mr-3">
-                <ShoppingBag className="h-6 w-6 text-white" />
+    <footer className="bg-grey-900 text-grey-300">
+      <div className="container-custom py-12 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg">
+                <span className="text-2xl">🛍️</span>
               </div>
-              <span className="text-2xl font-bold">DaloaMarket</span>
-            </Link>
-            <p className="text-grey-300 leading-relaxed mb-4">
-              La première marketplace P2P de Daloa. Achetez et vendez facilement depuis chez vous.
+              <span className="text-2xl font-black text-white">DaloaMarket</span>
+            </div>
+            <p className="text-grey-400 leading-relaxed mb-6">
+              La plateforme locale de confiance pour acheter et vendre des produits d'occasion à Daloa.
             </p>
-            <div className="flex items-center text-sm text-grey-400">
-              <Heart className="h-4 w-4 mr-2 text-primary" />
-              Fait à Daloa pour Daloa
+            <div className="flex items-center gap-2 text-grey-400">
+              <MapPin className="w-5 h-5" />
+              <span>Daloa, Côte d'Ivoire</span>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div className="col-span-1">
-            <h3 className="text-lg font-semibold mb-6 text-primary-100">Liens rapides</h3>
+          <div>
+            <h3 className="text-lg font-bold text-white mb-4">Liens Rapides</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/" className="text-grey-300 hover:text-primary transition-colors flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform">Accueil</span>
+                <Link to="/search" className="text-grey-400 hover:text-primary-400 transition-colors">
+                  Rechercher
                 </Link>
               </li>
               <li>
-                <Link to="/search" className="text-grey-300 hover:text-primary transition-colors flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform">Rechercher</span>
+                <Link to="/how-it-works" className="text-grey-400 hover:text-primary-400 transition-colors">
+                  Comment ça marche
                 </Link>
               </li>
               <li>
-                <Link to="/create-listing" className="text-grey-300 hover:text-primary transition-colors flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform">Vendre un article</span>
+                <Link to="/about" className="text-grey-400 hover:text-primary-400 transition-colors">
+                  À propos
                 </Link>
               </li>
               <li>
-                <Link to="/profile" className="text-grey-300 hover:text-primary transition-colors flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform">Mon compte</span>
+                <Link to="/faq" className="text-grey-400 hover:text-primary-400 transition-colors">
+                  FAQ
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Categories */}
-          <div className="col-span-1">
-            <h3 className="text-lg font-semibold mb-6 text-primary-100">Catégories</h3>
+          {/* Support */}
+          <div>
+            <h3 className="text-lg font-bold text-white mb-4">Support</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/search?category=fashion" className="text-grey-300 hover:text-primary transition-colors flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform">Mode & Accessoires</span>
+                <Link to="/help" className="text-grey-400 hover:text-primary-400 transition-colors">
+                  Centre d'aide
                 </Link>
               </li>
               <li>
-                <Link to="/search?category=electronics" className="text-grey-300 hover:text-primary transition-colors flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform">Électronique</span>
+                <Link to="/terms" className="text-grey-400 hover:text-primary-400 transition-colors">
+                  Conditions d'utilisation
                 </Link>
               </li>
               <li>
-                <Link to="/search?category=home" className="text-grey-300 hover:text-primary transition-colors flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform">Maison & Jardin</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/search?category=vehicles" className="text-grey-300 hover:text-primary transition-colors flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform">Auto & Moto</span>
+                <Link to="/privacy" className="text-grey-400 hover:text-primary-400 transition-colors">
+                  Confidentialité
                 </Link>
               </li>
             </ul>
           </div>
 
           {/* Contact */}
-          <div className="col-span-1">
-            <h3 className="text-lg font-semibold mb-6 text-primary-100">Contact</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start group">
-                <MapPin className="h-5 w-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                <span className="text-grey-300 group-hover:text-white transition-colors">Daloa, Côte d'Ivoire</span>
+          <div>
+            <h3 className="text-lg font-bold text-white mb-4">Contact</h3>
+            <ul className="space-y-3">
+              <li>
+                <a
+                  href="mailto:support@daloamarket.com"
+                  className="flex items-center gap-2 text-grey-400 hover:text-primary-400 transition-colors"
+                >
+                  <Mail className="w-4 h-4" />
+                  support@daloamarket.com
+                </a>
               </li>
-              <li className="flex items-center group">
-                <Phone className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
-                <div className="flex flex-col">
-                  <a href="tel:+2250788000831" className="text-grey-300 hover:text-primary transition-colors">
-                    +225 07 88 00 08 31
-                  </a>
-                  <a href="tel:+2250555863953" className="text-grey-300 hover:text-primary transition-colors text-sm">
-                    +225 05 55 86 39 53
-                  </a>
-                </div>
+              <li>
+                <a
+                  href="tel:+2250788000831"
+                  className="flex items-center gap-2 text-grey-400 hover:text-primary-400 transition-colors"
+                >
+                  <Phone className="w-4 h-4" />
+                  +225 07 88 00 08 31
+                </a>
               </li>
-              <li className="flex items-center group">
-                <Mail className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
-                <a href="mailto:support@daloamarket.shop" className="text-grey-300 hover:text-primary transition-colors">
-                  support@daloamarket.shop
+              <li>
+                <a
+                  href="tel:+2250555863953"
+                  className="flex items-center gap-2 text-grey-400 hover:text-primary-400 transition-colors"
+                >
+                  <Phone className="w-4 h-4" />
+                  +225 05 55 86 39 53
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Legal Links */}
-        <div className="border-t border-grey-700 mt-12 pt-8">
-          <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
-            <div className="text-center lg:text-left">
-              <p className="text-grey-400 text-sm mb-2">
-                &copy; {new Date().getFullYear()} DaloaMarket. Tous droits réservés.
-              </p>
-              <div className="bg-gradient-to-r from-orange-500/20 to-orange-600/20 border border-orange-500/30 rounded-lg p-3">
-                <p className="text-xs text-orange-300 leading-relaxed">
-                  ⚠️ <strong>Version Bêta</strong> - Projet étudiant en développement. 
-                  Aucune structure juridique formelle n'a encore été créée.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex flex-wrap justify-center lg:justify-end gap-6">
-              <Link to="/terms" className="text-grey-400 hover:text-primary text-sm transition-colors flex items-center">
-                Conditions d'utilisation
-                <ExternalLink className="h-3 w-3 ml-1" />
-              </Link>
-              <Link to="/privacy" className="text-grey-400 hover:text-primary text-sm transition-colors flex items-center">
-                Confidentialité
-                <ExternalLink className="h-3 w-3 ml-1" />
-              </Link>
-              <Link to="/help" className="text-grey-400 hover:text-primary text-sm transition-colors flex items-center">
-                Aide
-                <ExternalLink className="h-3 w-3 ml-1" />
-              </Link>
+        {/* Bottom Bar */}
+        <div className="mt-12 pt-8 border-t border-grey-800">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-grey-500 text-sm">
+              © {new Date().getFullYear()} DaloaMarket. Tous droits réservés.
+            </p>
+            <div className="flex items-center gap-2 text-grey-500 text-sm">
+              <span>Fait avec</span>
+              <Heart className="w-4 h-4 text-error-500 fill-current" />
+              <span>en Côte d'Ivoire</span>
             </div>
           </div>
         </div>

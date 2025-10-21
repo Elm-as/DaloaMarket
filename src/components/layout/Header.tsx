@@ -1,146 +1,261 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, Search, User, ShoppingBag, MessageSquare, } from 'lucide-react';
+import { Menu, Search, User, Plus, MessageSquare, Home, X } from 'lucide-react';
 import { useSupabase } from '../../hooks/useSupabase';
-import MobileMenu from './MobileMenu';
-import BetaBadge from './BetaBadge';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const { user } = useSupabase();
+  const { user, signOut } = useSupabase();
   const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery('');
     }
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const handleSignOut = async () => {
+    await signOut();
+    setIsMenuOpen(false);
+    navigate('/');
   };
 
   return (
-    <header className="sticky top-0 z-50 shadow-lg border-b border-grey-100 bg-white/90 md:bg-white/95 backdrop-blur-md">
-      <div className="container-custom py-0 sm:py-3 lg:py-4">
-        <div className="flex items-center justify-between md:justify-between">
-          {/* Logo à gauche */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center group flex-shrink-0">
-              <div className="h-8 w-8 sm:h-8 sm:w-8 lg:h-10 lg:w-10 bg-gradient-to-br from-primary to-primary-600 rounded-xl flex items-center justify-center mr-2 group-hover:scale-105 transition-transform shadow-md">
-                <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-white" />
+    <>
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-grey-200/50 shadow-sm">
+        <div className="container-custom">
+          <div className="flex items-center justify-between h-16 lg:h-20">
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:scale-105 transition-transform">
+                <span className="text-2xl">🛍️</span>
               </div>
-              <span className="text-lg lg:text-xl font-bold text-grey-900 leading-none">DaloaMarket</span>
-              <div className="scale-75 sm:scale-100 origin-left ml-1">
-                <BetaBadge />
+              <div className="hidden sm:block">
+                <span className="text-xl lg:text-2xl font-black text-grey-900 tracking-tight">
+                  DaloaMarket
+                </span>
               </div>
             </Link>
+
+            {/* Search Bar - Desktop */}
+            <form onSubmit={handleSearch} className="hidden lg:flex flex-1 max-w-xl mx-8">
+              <div className="relative w-full">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-grey-400" />
+                <input
+                  type="text"
+                  placeholder="Rechercher un produit..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full h-12 pl-12 pr-4 rounded-2xl bg-grey-100 border-2 border-transparent focus:border-primary-500 focus:bg-white transition-all outline-none text-grey-900 placeholder-grey-500 font-medium"
+                />
+              </div>
+            </form>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-2">
+              {user ? (
+                <>
+                  <Link
+                    to="/create-listing"
+                    className="inline-flex items-center gap-2 bg-primary-600 text-white px-5 py-2.5 rounded-xl font-bold hover:bg-primary-700 transition-colors shadow-lg shadow-primary-500/30"
+                  >
+                    <Plus className="w-5 h-5" />
+                    Vendre
+                  </Link>
+                  <Link
+                    to="/messages"
+                    className="p-3 rounded-xl text-grey-700 hover:bg-grey-100 transition-colors"
+                    title="Messages"
+                  >
+                    <MessageSquare className="w-6 h-6" />
+                  </Link>
+                  <Link
+                    to="/profile"
+                    className="p-3 rounded-xl text-grey-700 hover:bg-grey-100 transition-colors"
+                    title="Profil"
+                  >
+                    <User className="w-6 h-6" />
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="px-5 py-2.5 rounded-xl text-grey-700 font-bold hover:bg-grey-100 transition-colors"
+                  >
+                    Connexion
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="px-5 py-2.5 rounded-xl bg-primary-600 text-white font-bold hover:bg-primary-700 transition-colors shadow-lg shadow-primary-500/30"
+                  >
+                    Inscription
+                  </Link>
+                </>
+              )}
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden p-2 rounded-xl text-grey-700 hover:bg-grey-100 transition-colors"
+              aria-label="Menu"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
 
-          {/* Search Bar (hidden on mobile) */}
-          <div className="hidden md:block flex-1 max-w-lg mx-4 lg:mx-8">
-            <form onSubmit={handleSearch} className="relative">
+          {/* Mobile Search Bar */}
+          <form onSubmit={handleSearch} className="lg:hidden pb-4">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-grey-400" />
               <input
                 type="text"
-                placeholder="Rechercher un produit..."
-                className="w-full py-2 lg:py-2.5 pl-9 lg:pl-10 pr-3 lg:pr-4 rounded-lg lg:rounded-xl border border-grey-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-grey-50 focus:bg-white transition-all text-sm lg:text-base"
+                placeholder="Rechercher..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full h-12 pl-12 pr-4 rounded-xl bg-grey-100 border-2 border-transparent focus:border-primary-500 focus:bg-white transition-all outline-none text-grey-900 placeholder-grey-500"
               />
-              <Search className="absolute left-2.5 lg:left-3 top-2 lg:top-2.5 h-4 w-4 lg:h-5 lg:w-5 text-grey-400" />
-              <button
-                type="submit"
-                className="absolute right-1 lg:right-1.5 top-0.5 lg:top-1 bg-primary text-white py-1.5 lg:py-2 px-2.5 lg:px-3 rounded-md lg:rounded-lg hover:bg-primary-600 transition-colors font-medium text-xs lg:text-sm"
-              >
-                Rechercher
-              </button>
-            </form>
-          </div>
-
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
-            <Link 
-              to="/search" 
-              className="p-2 lg:p-2.5 rounded-lg text-grey-700 hover:text-primary hover:bg-primary-50 transition-all touch-target"
-              title="Rechercher"
-            >
-              <Search className="h-5 w-5 lg:h-6 lg:w-6" />
-            </Link>
-            <Link 
-              to="/about"
-              className="p-2 lg:p-2.5 rounded-lg text-grey-700 hover:text-primary hover:bg-primary-50 transition-all touch-target"
-              title="À propos"
-            >
-              À propos
-            </Link>
-            <Link
-              to="/help"
-              className="p-2 lg:p-2.5 rounded-lg text-grey-700 hover:text-primary hover:bg-primary-50 transition-all touch-target"
-              title="Aide & Support"
-            >
-              Aide
-            </Link>
-            <Link 
-              to="/messages" 
-              className="p-2 lg:p-2.5 rounded-lg text-grey-700 hover:text-primary hover:bg-primary-50 transition-all relative touch-target"
-              title="Messages"
-            >
-              <MessageSquare className="h-5 w-5 lg:h-6 lg:w-6" />
-            </Link>
-            {user ? (
-              <Link 
-                to="/profile" 
-                className="p-2 lg:p-2.5 rounded-lg text-grey-700 hover:text-primary hover:bg-primary-50 transition-all touch-target"
-                title="Mon profil"
-              >
-                <User className="h-5 w-5 lg:h-6 lg:w-6" />
-              </Link>
-            ) : (
-              <Link to="/login" className="btn-outline py-2 px-3 lg:py-2 lg:px-4 ml-2 text-xs lg:text-sm">
-                Connexion
-              </Link>
-            )}
-            <Link to="/create-listing" className="btn-primary py-2 lg:py-2.5 px-3 lg:px-4 ml-2 font-semibold text-xs lg:text-sm">
-              Vendre
-            </Link>
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden p-2 rounded-full bg-white/80 shadow-md text-grey-700 hover:bg-primary-50 transition-colors touch-target flex-shrink-0 ml-2" 
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-          >
-            <Menu className="h-6 w-6" />
-          </button>
-        </div>
-
-        {/* Mobile Search (visible only on mobile) */}
-        <div className="mt-2 md:hidden">
-          <form onSubmit={handleSearch} className="relative">
-            <input
-              type="text"
-              placeholder="Rechercher un produit..."
-              className="w-full py-2.5 pl-9 pr-3 rounded-lg border border-grey-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white/80 focus:bg-white transition-all text-sm shadow-sm"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-grey-400" />
-            <button
-              type="submit"
-              className="absolute right-1.5 top-1 bg-primary text-white py-1.5 px-3 rounded-md hover:bg-primary-600 transition-colors text-xs font-medium"
-            >
-              Rechercher
-            </button>
+            </div>
           </form>
         </div>
-      </div>
+      </header>
 
       {/* Mobile Menu */}
-      {isMenuOpen && <MobileMenu onClose={toggleMenu} />}
-    </header>
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+              onClick={() => setIsMenuOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed right-0 top-16 bottom-0 w-80 bg-white shadow-2xl z-50 lg:hidden overflow-y-auto"
+            >
+              <nav className="p-6 space-y-2">
+                {user ? (
+                  <>
+                    <Link
+                      to="/profile"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 p-4 rounded-2xl hover:bg-grey-50 transition-colors font-semibold text-grey-900"
+                    >
+                      <User className="w-5 h-5" />
+                      Mon Profil
+                    </Link>
+                    <Link
+                      to="/create-listing"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 p-4 rounded-2xl bg-primary-600 text-white font-bold hover:bg-primary-700 transition-colors"
+                    >
+                      <Plus className="w-5 h-5" />
+                      Créer une annonce
+                    </Link>
+                    <Link
+                      to="/messages"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 p-4 rounded-2xl hover:bg-grey-50 transition-colors font-semibold text-grey-900"
+                    >
+                      <MessageSquare className="w-5 h-5" />
+                      Messages
+                    </Link>
+                    <div className="border-t border-grey-200 my-4" />
+                    <Link
+                      to="/search"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 p-4 rounded-2xl hover:bg-grey-50 transition-colors font-semibold text-grey-900"
+                    >
+                      <Search className="w-5 h-5" />
+                      Rechercher
+                    </Link>
+                    <Link
+                      to="/about"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 p-4 rounded-2xl hover:bg-grey-50 transition-colors font-semibold text-grey-900"
+                    >
+                      À propos
+                    </Link>
+                    <Link
+                      to="/help"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 p-4 rounded-2xl hover:bg-grey-50 transition-colors font-semibold text-grey-900"
+                    >
+                      Aide
+                    </Link>
+                    <div className="border-t border-grey-200 my-4" />
+                    <button
+                      onClick={handleSignOut}
+                      className="w-full flex items-center gap-3 p-4 rounded-2xl hover:bg-error-50 transition-colors font-semibold text-error-600"
+                    >
+                      Déconnexion
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to="/"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 p-4 rounded-2xl hover:bg-grey-50 transition-colors font-semibold text-grey-900"
+                    >
+                      <Home className="w-5 h-5" />
+                      Accueil
+                    </Link>
+                    <Link
+                      to="/search"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 p-4 rounded-2xl hover:bg-grey-50 transition-colors font-semibold text-grey-900"
+                    >
+                      <Search className="w-5 h-5" />
+                      Rechercher
+                    </Link>
+                    <Link
+                      to="/about"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 p-4 rounded-2xl hover:bg-grey-50 transition-colors font-semibold text-grey-900"
+                    >
+                      À propos
+                    </Link>
+                    <Link
+                      to="/help"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-3 p-4 rounded-2xl hover:bg-grey-50 transition-colors font-semibold text-grey-900"
+                    >
+                      Aide
+                    </Link>
+                    <div className="border-t border-grey-200 my-4" />
+                    <Link
+                      to="/login"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center justify-center gap-3 p-4 rounded-2xl border-2 border-grey-200 hover:border-grey-300 transition-colors font-bold text-grey-900"
+                    >
+                      Connexion
+                    </Link>
+                    <Link
+                      to="/register"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center justify-center gap-3 p-4 rounded-2xl bg-primary-600 text-white font-bold hover:bg-primary-700 transition-colors"
+                    >
+                      Inscription
+                    </Link>
+                  </>
+                )}
+              </nav>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
