@@ -1,0 +1,12 @@
+-- Activer RLS si ce n'est pas déjà fait
+ALTER TABLE listings ENABLE ROW LEVEL SECURITY;
+
+-- Supprimer les anciennes politiques si besoin
+DROP POLICY IF EXISTS "Public can view listings" ON listings;
+
+-- Créer une politique de lecture publique
+CREATE POLICY "Public can view listings"
+  ON listings
+  FOR SELECT
+  TO public
+  USING (true);

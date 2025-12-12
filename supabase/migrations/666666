@@ -1,0 +1,5 @@
+-- Autoriser l'upload (insert) dans le bucket manual-payments à tout le monde
+create policy "Allow public upload for manual-payments"
+on storage.objects
+for insert
+with check (bucket_id = 'manual-payments');
