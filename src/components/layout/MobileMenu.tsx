@@ -11,6 +11,7 @@ import {
   CreditCard
 } from 'lucide-react';
 import { useSupabase } from '../../hooks/useSupabase';
+import { BETA_FREE_MODE } from '../../lib/betaConfig';
 
 interface MobileMenuProps {
   onClose: () => void;
@@ -99,14 +100,16 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ onClose }) => {
         {/* Actions rapides et infos utilisateur */}
         {user && (
           <div className="border-t border-grey-100 px-5 py-4 bg-gradient-to-r from-primary-50 to-orange-50">
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                onClick={() => handleNavigation('/acheter-credits')}
-                className="flex flex-col items-center py-2 px-3 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200 hover:from-blue-100 hover:to-blue-200 transition-all"
-              >
-                <CreditCard className="h-4 w-4 text-blue-600 mb-1" />
-                <span className="text-xs font-medium text-blue-700">Crédits</span>
-              </button>
+            <div className={`grid gap-2 ${BETA_FREE_MODE ? 'grid-cols-2' : 'grid-cols-3'}`}>
+              {!BETA_FREE_MODE && (
+                <button
+                  onClick={() => handleNavigation('/acheter-credits')}
+                  className="flex flex-col items-center py-2 px-3 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200 hover:from-blue-100 hover:to-blue-200 transition-all"
+                >
+                  <CreditCard className="h-4 w-4 text-blue-600 mb-1" />
+                  <span className="text-xs font-medium text-blue-700">Crédits</span>
+                </button>
+              )}
               <button
                 onClick={() => handleNavigation('/settings')}
                 className="flex flex-col items-center py-2 px-3 bg-gradient-to-br from-grey-50 to-grey-100 rounded-lg border border-grey-200 hover:from-grey-100 hover:to-grey-200 transition-all"
