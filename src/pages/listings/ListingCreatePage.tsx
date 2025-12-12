@@ -9,6 +9,7 @@ import { useSupabase } from '../../contexts/SupabaseContext';
 import { supabase } from '../../lib/supabase';
 import { DISTRICTS, CATEGORIES, CONDITIONS } from '../../lib/utils';
 import { BETA_FREE_MODE, MAX_FREE_LISTINGS } from '../../lib/betaConfig';
+import { MESSAGES } from '../../lib/messages';
 
 // --- Définition locale des constantes manquantes ---
 // const CATEGORIES = [
@@ -273,7 +274,7 @@ const ListingCreatePage: React.FC = () => {
     
     // Check for publication limit during beta
     if (BETA_FREE_MODE && hasReachedLimit) {
-      toast.error(`Limite de ${MAX_FREE_LISTINGS} publications atteinte pour la période bêta.`);
+      toast.error(MESSAGES.LISTING_LIMIT_REACHED(MAX_FREE_LISTINGS));
       return;
     }
     
@@ -288,7 +289,7 @@ const ListingCreatePage: React.FC = () => {
       if (BETA_FREE_MODE) {
         const listing = await saveListing(data, photoUrls, 'active');
         const remainingListings = MAX_FREE_LISTINGS - totalListings - 1;
-        toast.success(`Annonce publiée gratuitement ! ${remainingListings} publication(s) restante(s).`);
+        toast.success(MESSAGES.LISTING_PUBLISHED_FREE(remainingListings));
         navigate(`/listings/${listing.id}`);
         return;
       }
@@ -297,7 +298,7 @@ const ListingCreatePage: React.FC = () => {
       // Cas 1 : Première annonce gratuite
       if (isFirstListing) {
         const listing = await saveListing(data, photoUrls, 'active');
-        toast.success('Votre première annonce a été publiée gratuitement !');
+        toast.success(MESSAGES.LISTING_FIRST_FREE);
         navigate(`/listings/${listing.id}`);
         return;
       }
@@ -311,7 +312,7 @@ const ListingCreatePage: React.FC = () => {
           return;
         }
         const listing = await saveListing(data, photoUrls, 'active');
-        toast.success('Annonce publiée ! 1 crédit consommé.');
+        toast.success(MESSAGES.LISTING_CREDIT_USED);
         navigate(`/listings/${listing.id}`);
         return;
       }
@@ -322,7 +323,7 @@ const ListingCreatePage: React.FC = () => {
       
     } catch (error) {
       console.error('Error creating listing:', error);
-      toast.error('Erreur lors de la création de l\'annonce');
+      toast.error(MESSAGES.LISTING_ERROR);
     } finally {
       setIsLoading(false);
     }

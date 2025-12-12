@@ -280,7 +280,7 @@ const ListingDetailPage: React.FC = () => {
                       <>
                         <button 
                           onClick={prevImage}
-                          className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-1.5 sm:p-2 shadow-md hover:bg-opacity-100 transition-all touch-target"
+                          className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-1.5 sm:p-2 shadow-md hover:bg-opacity-100 transition-all touch-target focus:outline-none focus:ring-2 focus:ring-primary"
                           aria-label="Image précédente"
                         >
                           <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 text-grey-800" />
@@ -288,7 +288,7 @@ const ListingDetailPage: React.FC = () => {
                         
                         <button 
                           onClick={nextImage}
-                          className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-1.5 sm:p-2 shadow-md hover:bg-opacity-100 transition-all touch-target"
+                          className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-1.5 sm:p-2 shadow-md hover:bg-opacity-100 transition-all touch-target focus:outline-none focus:ring-2 focus:ring-primary"
                           aria-label="Image suivante"
                         >
                           <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 text-grey-800" />
@@ -299,11 +299,15 @@ const ListingDetailPage: React.FC = () => {
                             <button
                               key={index}
                               onClick={() => setCurrentImageIndex(index)}
-                              className={`h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full transition-all ${
+                              className={`p-2 touch-target focus:outline-none focus:ring-2 focus:ring-primary rounded-full ${
                                 index === currentImageIndex ? 'bg-primary scale-125' : 'bg-white bg-opacity-60'
                               }`}
                               aria-label={`Voir image ${index + 1}`}
-                            />
+                            >
+                              <span className={`block h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full transition-all ${
+                                index === currentImageIndex ? 'bg-white' : 'bg-current'
+                              }`} />
+                            </button>
                           ))}
                         </div>
                       </>
