@@ -113,12 +113,15 @@ const ListingCreatePage: React.FC = () => {
   }, [user]);
   
   // Check total listings count for limit enforcement
+  // Note: This only runs on mount and when user changes, which is acceptable
+  // as the listing creation page is not frequently visited
   useEffect(() => {
     const checkListingsCount = async () => {
       if (!user?.id) {
         setTotalListings(0);
         return;
       }
+      // Using head: true for efficient count-only query
       const { count, error } = await supabase
         .from('listings')
         .select('*', { count: 'exact', head: true })

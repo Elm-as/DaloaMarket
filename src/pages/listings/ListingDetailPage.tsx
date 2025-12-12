@@ -303,6 +303,7 @@ const ListingDetailPage: React.FC = () => {
                                 index === currentImageIndex ? 'bg-primary scale-125' : 'bg-white bg-opacity-60'
                               }`}
                               aria-label={`Voir image ${index + 1}`}
+                              aria-current={index === currentImageIndex ? 'true' : 'false'}
                             >
                               <span className={`block h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full transition-all ${
                                 index === currentImageIndex ? 'bg-white' : 'bg-current'
