@@ -18,6 +18,7 @@ import LoadingSpinner from '../../components/ui/LoadingSpinner';
 import ListingCard from '../../components/listings/ListingCard';
 import { formatPhoneNumber, formatDate } from '../../lib/utils';
 import { Database } from '../../lib/database.types';
+import { BETA_FREE_MODE } from '../../lib/betaConfig';
 
 type Listing = Database['public']['Tables']['listings']['Row'];
 type Review = Database['public']['Tables']['reviews']['Row'] & {
@@ -162,8 +163,8 @@ const ProfilePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-grey-50 py-4 sm:py-6 lg:py-8">
       <div className="container-custom max-w-6xl">
-        {/* Affichage du solde de crédits si connecté */}
-        {user && (
+        {/* Affichage du solde de crédits si connecté (hidden during beta) */}
+        {user && !BETA_FREE_MODE && (
           <div className="flex justify-end">
             <div className="bg-white rounded-lg lg:rounded-xl shadow-md px-3 sm:px-4 py-2 flex items-center gap-1.5 sm:gap-2 text-primary font-semibold">
               <span className="text-sm sm:text-base">Crédits:</span>
