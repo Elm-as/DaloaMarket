@@ -8,6 +8,8 @@ import LoadingSpinner from '../../components/ui/LoadingSpinner';
 import { useSupabase } from '../../contexts/SupabaseContext';
 import { supabase } from '../../lib/supabase';
 import { DISTRICTS, CATEGORIES, CONDITIONS } from '../../lib/utils';
+import { BETA_FREE_MODE, MAX_FREE_LISTINGS } from '../../lib/betaConfig';
+import { MESSAGES } from '../../lib/messages';
 
 // --- Définition locale des constantes manquantes ---
 // const CATEGORIES = [
@@ -51,6 +53,8 @@ const ListingCreatePage: React.FC = () => {
   const [userCredits, setUserCredits] = useState<number | null>(null);
   const [showPaymentInfo, setShowPaymentInfo] = useState(false);
   const [, setIsPrefilling] = useState(false);
+  const [totalListings, setTotalListings] = useState<number>(0);
+  const [hasReachedLimit, setHasReachedLimit] = useState(false);
   
   const {
     register,
@@ -106,6 +110,34 @@ const ListingCreatePage: React.FC = () => {
       setIsFirstListing(!data?.first_listing_at); // true si null, donc gratuité
     };
     checkFirstListing();
+  }, [user]);
+  
+  // Check total listings count for limit enforcement
+  // Note: This only runs on mount and when user changes, which is acceptable
+  // as the listing creation page is not frequently visited
+  useEffect(() => {
+    const checkListingsCount = async () => {
+      if (!user?.id) {
+        setTotalListings(0);
+        return;
+      }
+      // Using head: true for efficient count-only query
+      const { count, error } = await supabase
+        .from('listings')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+      
+      if (error) {
+        console.error('Error fetching listings count:', error);
+        setTotalListings(0);
+        return;
+      }
+      
+      const listingsCount = count || 0;
+      setTotalListings(listingsCount);
+      setHasReachedLimit(BETA_FREE_MODE && listingsCount >= MAX_FREE_LISTINGS);
+    };
+    checkListingsCount();
   }, [user]);
   
   // Récupérer le solde de crédits à l'ouverture
@@ -242,6 +274,13 @@ const ListingCreatePage: React.FC = () => {
       setPhotoErrors('Veuillez ajouter au moins une photo');
       return;
     }
+    
+    // Check for publication limit during beta
+    if (BETA_FREE_MODE && hasReachedLimit) {
+      toast.error(MESSAGES.LISTING_LIMIT_REACHED(MAX_FREE_LISTINGS));
+      return;
+    }
+    
     setPhotoErrors(null);
     setIsLoading(true);
 
@@ -249,10 +288,20 @@ const ListingCreatePage: React.FC = () => {
       // Upload des photos
       const photoUrls = await uploadPhotos();
 
+      // BETA MODE: All listings are free up to the limit
+      if (BETA_FREE_MODE) {
+        const listing = await saveListing(data, photoUrls, 'active');
+        const remainingListings = MAX_FREE_LISTINGS - totalListings - 1;
+        toast.success(MESSAGES.LISTING_PUBLISHED_FREE(remainingListings));
+        navigate(`/listings/${listing.id}`);
+        return;
+      }
+
+      // PAID MODE (disabled during beta):
       // Cas 1 : Première annonce gratuite
       if (isFirstListing) {
         const listing = await saveListing(data, photoUrls, 'active');
-        toast.success('Votre première annonce a été publiée gratuitement !');
+        toast.success(MESSAGES.LISTING_FIRST_FREE);
         navigate(`/listings/${listing.id}`);
         return;
       }
@@ -266,7 +315,7 @@ const ListingCreatePage: React.FC = () => {
           return;
         }
         const listing = await saveListing(data, photoUrls, 'active');
-        toast.success('Annonce publiée ! 1 crédit consommé.');
+        toast.success(MESSAGES.LISTING_CREDIT_USED);
         navigate(`/listings/${listing.id}`);
         return;
       }
@@ -277,7 +326,7 @@ const ListingCreatePage: React.FC = () => {
       
     } catch (error) {
       console.error('Error creating listing:', error);
-      toast.error('Erreur lors de la création de l\'annonce');
+      toast.error(MESSAGES.LISTING_ERROR);
     } finally {
       setIsLoading(false);
     }
@@ -480,16 +529,24 @@ const ListingCreatePage: React.FC = () => {
               <h1 className="text-2xl lg:text-3xl font-extrabold text-white drop-shadow mb-2 sm:mb-0">Publier une annonce</h1>
               {user && (
                 <div className="flex items-center gap-3 lg:gap-4">
-                  <span className="bg-white/20 text-white px-3 lg:px-4 py-1.5 lg:py-2 rounded-full font-semibold text-sm lg:text-lg shadow">
-                    Crédits : <span className="font-bold">{userCredits === null ? '...' : userCredits}</span>
-                  </span>
-                  <button
-                    type="button"
-                    className="btn-outline border-white text-white hover:bg-white/10 hover:text-white text-sm lg:text-base py-1.5 lg:py-2 px-3 lg:px-4"
-                    onClick={() => navigate('/acheter-credits')}
-                  >
-                    Acheter des crédits
-                  </button>
+                  {BETA_FREE_MODE ? (
+                    <span className="bg-white/20 text-white px-3 lg:px-4 py-1.5 lg:py-2 rounded-full font-semibold text-sm lg:text-base shadow">
+                      Bêta gratuite : <span className="font-bold">{totalListings}/{MAX_FREE_LISTINGS}</span>
+                    </span>
+                  ) : (
+                    <>
+                      <span className="bg-white/20 text-white px-3 lg:px-4 py-1.5 lg:py-2 rounded-full font-semibold text-sm lg:text-lg shadow">
+                        Crédits : <span className="font-bold">{userCredits === null ? '...' : userCredits}</span>
+                      </span>
+                      <button
+                        type="button"
+                        className="btn-outline border-white text-white hover:bg-white/10 hover:text-white text-sm lg:text-base py-1.5 lg:py-2 px-3 lg:px-4"
+                        onClick={() => navigate('/acheter-credits')}
+                      >
+                        Acheter des crédits
+                      </button>
+                    </>
+                  )}
                 </div>
               )}
             </div>
@@ -755,42 +812,75 @@ const ListingCreatePage: React.FC = () => {
               
               {/* Pricing Info */}
               <div className="bg-gradient-to-r from-primary-50 to-primary-100 rounded-xl lg:rounded-2xl p-4 lg:p-8 border border-primary-200 shadow-sm">
-                <h3 className="text-lg lg:text-xl font-bold mb-4 lg:mb-6 text-primary">Coût de publication</h3>
+                <h3 className="text-lg lg:text-xl font-bold mb-4 lg:mb-6 text-primary">
+                  {BETA_FREE_MODE ? 'Phase Bêta Gratuite' : 'Coût de publication'}
+                </h3>
                 
-                {isFirstListing ? (
-                  <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                {BETA_FREE_MODE ? (
+                  <div className={`rounded-lg p-4 ${hasReachedLimit ? 'bg-orange-50 border border-orange-200' : 'bg-green-50 border border-green-200'}`}>
                     <div className="flex items-center gap-3">
-                      <CheckCircle2 className="h-6 w-6 text-green-600 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold text-green-800 text-base lg:text-lg">Première annonce gratuite !</p>
-                        <p className="text-green-700 text-sm lg:text-base">Votre première annonce sera publiée gratuitement.</p>
-                      </div>
-                    </div>
-                  </div>
-                ) : userCredits && userCredits > 0 ? (
-                  <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                    <div className="flex items-center gap-3">
-                      <CreditCard className="h-6 w-6 text-blue-600 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold text-blue-800 text-base lg:text-lg">1 crédit sera consommé</p>
-                        <p className="text-blue-700 text-sm lg:text-base mb-3 lg:mb-4">
-                          Vous avez {userCredits} crédit{userCredits > 1 ? 's' : ''} disponible{userCredits > 1 ? 's' : ''}.
-                        </p>
-                      </div>
+                      {hasReachedLimit ? (
+                        <>
+                          <AlertCircle className="h-6 w-6 text-orange-600 flex-shrink-0" />
+                          <div>
+                            <p className="font-semibold text-orange-800 text-base lg:text-lg">Limite atteinte</p>
+                            <p className="text-orange-700 text-sm lg:text-base">
+                              Vous avez atteint la limite de {MAX_FREE_LISTINGS} publications gratuites pour la période bêta.
+                            </p>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircle2 className="h-6 w-6 text-green-600 flex-shrink-0" />
+                          <div>
+                            <p className="font-semibold text-green-800 text-base lg:text-lg">Publication gratuite !</p>
+                            <p className="text-green-700 text-sm lg:text-base">
+                              Pendant la phase bêta, vous pouvez publier gratuitement jusqu'à {MAX_FREE_LISTINGS} annonces.
+                              Vous avez utilisé {totalListings} publication(s). Il vous reste {MAX_FREE_LISTINGS - totalListings} publication(s).
+                            </p>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
-                    <div className="flex items-center gap-3">
-                      <AlertCircle className="h-6 w-6 text-orange-600 flex-shrink-0" />
-                      <div>
-                        <p className="font-semibold text-orange-800 text-base lg:text-lg">Paiement requis</p>
-                        <p className="text-orange-700 text-sm lg:text-base">
-                          Vous devrez payer 200 FCFA ou acheter des crédits pour publier cette annonce.
-                        </p>
+                  <>
+                    {isFirstListing ? (
+                      <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                        <div className="flex items-center gap-3">
+                          <CheckCircle2 className="h-6 w-6 text-green-600 flex-shrink-0" />
+                          <div>
+                            <p className="font-semibold text-green-800 text-base lg:text-lg">Première annonce gratuite !</p>
+                            <p className="text-green-700 text-sm lg:text-base">Votre première annonce sera publiée gratuitement.</p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    ) : userCredits && userCredits > 0 ? (
+                      <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                        <div className="flex items-center gap-3">
+                          <CreditCard className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                          <div>
+                            <p className="font-semibold text-blue-800 text-base lg:text-lg">1 crédit sera consommé</p>
+                            <p className="text-blue-700 text-sm lg:text-base mb-3 lg:mb-4">
+                              Vous avez {userCredits} crédit{userCredits > 1 ? 's' : ''} disponible{userCredits > 1 ? 's' : ''}.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
+                        <div className="flex items-center gap-3">
+                          <AlertCircle className="h-6 w-6 text-orange-600 flex-shrink-0" />
+                          <div>
+                            <p className="font-semibold text-orange-800 text-base lg:text-lg">Paiement requis</p>
+                            <p className="text-orange-700 text-sm lg:text-base">
+                              Vous devrez payer 200 FCFA ou acheter des crédits pour publier cette annonce.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
               
@@ -817,10 +907,12 @@ const ListingCreatePage: React.FC = () => {
               <button
                 type="submit"
                 className="btn-primary w-full flex justify-center items-center text-base lg:text-lg py-3 lg:py-4"
-                disabled={isLoading || isUploading || isFirstListing === null}
+                disabled={isLoading || isUploading || isFirstListing === null || hasReachedLimit}
               >
                 {isLoading ? (
                   <LoadingSpinner size="small" className="text-white" />
+                ) : BETA_FREE_MODE ? (
+                  hasReachedLimit ? 'Limite atteinte' : 'Publier gratuitement'
                 ) : isFirstListing ? (
                   'Publier gratuitement'
                 ) : userCredits && userCredits > 0 ? (

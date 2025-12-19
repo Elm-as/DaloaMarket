@@ -49,20 +49,21 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 py-12 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 py-6 sm:py-12 relative overflow-hidden">
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute top-20 left-10 w-32 h-32 bg-primary-200 rounded-full blur-xl" />
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary-200 rounded-full blur-xl" />
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-primary-100 rounded-full blur-2xl" />
       </div>
 
-      <motion.div className="container-custom max-w-md relative z-10" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-        <motion.div className="flex justify-center mb-6" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}>
-          <Mascot type={isLoading ? 'excited' : 'happy'} size={100} reaction={mascotReaction} passwordState={showPassword ? 'visible' : 'hidden'} />
+      <motion.div className="container-custom max-w-md relative z-10 px-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <motion.div className="flex justify-center mb-4 sm:mb-6" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}>
+          <Mascot type={isLoading ? 'excited' : 'happy'} size={80} reaction={mascotReaction} passwordState={showPassword ? 'visible' : 'hidden'} className="sm:hidden" />
+          <Mascot type={isLoading ? 'excited' : 'happy'} size={100} reaction={mascotReaction} passwordState={showPassword ? 'visible' : 'hidden'} className="hidden sm:block" />
         </motion.div>
 
-        <motion.div className="bg-white/80 backdrop-blur-sm rounded-card shadow-card p-6 md:p-8 border border-white/20" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 0.5 }}>
-          <motion.h1 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>Bienvenue !</motion.h1>
+        <motion.div className="bg-white/80 backdrop-blur-sm rounded-card shadow-card p-5 sm:p-6 md:p-8 border border-white/20" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 0.5 }}>
+          <motion.h1 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>Bienvenue !</motion.h1>
 
           <motion.form onSubmit={handleSubmit(onSubmit)} className="space-y-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
             <motion.div initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.6 }}>

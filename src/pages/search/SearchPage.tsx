@@ -198,16 +198,16 @@ const SearchPage: React.FC = () => {
         </div>
         
         {/* Filters and Controls */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+        <div className="bg-white rounded-lg sm:rounded-xl lg:rounded-2xl shadow-md lg:shadow-lg p-4 sm:p-5 lg:p-6 mb-6 sm:mb-8">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 sm:gap-4">
             {/* Left side - Filters */}
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:gap-4 w-full lg:w-auto">
               <button
                 onClick={() => setIsFilterOpen(true)}
-                className="btn-outline flex items-center gap-2 px-4 py-2"
+                className="btn-outline flex items-center gap-2 px-3 sm:px-4 py-2 text-sm sm:text-base min-h-[44px]"
               >
-                <Filter className="h-4 w-4" />
-                Filtres
+                <Filter className="h-4 w-4 flex-shrink-0" />
+                <span>Filtres</span>
                 {(filters.category || filters.condition || filters.district || filters.minPrice || filters.maxPrice) && (
                   <span className="bg-primary text-white text-xs rounded-full px-2 py-0.5 ml-1">
                     {[filters.category, filters.condition, filters.district, filters.minPrice || filters.maxPrice].filter(Boolean).length}
@@ -216,9 +216,9 @@ const SearchPage: React.FC = () => {
               </button>
               
               {/* Active Filters */}
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 w-full lg:w-auto">
                 {filters.category && (
-                  <div className="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm flex items-center">
+                  <div className="bg-primary-100 text-primary-700 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm flex items-center">
                     {getCategoryLabel(filters.category)}
                     <button 
                       onClick={() => {

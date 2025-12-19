@@ -260,14 +260,14 @@ const ListingDetailPage: React.FC = () => {
   }
   
   return (
-    <div className="min-h-screen bg-grey-50 py-8">
+    <div className="min-h-screen bg-grey-50 py-4 sm:py-6 lg:py-8">
       <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
             {/* Image Gallery */}
             <div className="bg-white rounded-card shadow-card overflow-hidden mb-6">
-              <div className="relative aspect-video">
+              <div className="relative aspect-video bg-grey-100">
                 {listing.photos && listing.photos.length > 0 ? (
                   <>
                     <img 
@@ -280,30 +280,35 @@ const ListingDetailPage: React.FC = () => {
                       <>
                         <button 
                           onClick={prevImage}
-                          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-2 shadow-md hover:bg-opacity-100 transition-all"
+                          className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-1.5 sm:p-2 shadow-md hover:bg-opacity-100 transition-all touch-target focus:outline-none focus:ring-2 focus:ring-primary"
                           aria-label="Image précédente"
                         >
-                          <ChevronLeft className="h-6 w-6 text-grey-800" />
+                          <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 text-grey-800" />
                         </button>
                         
                         <button 
                           onClick={nextImage}
-                          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-2 shadow-md hover:bg-opacity-100 transition-all"
+                          className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 rounded-full p-1.5 sm:p-2 shadow-md hover:bg-opacity-100 transition-all touch-target focus:outline-none focus:ring-2 focus:ring-primary"
                           aria-label="Image suivante"
                         >
-                          <ChevronRight className="h-6 w-6 text-grey-800" />
+                          <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 text-grey-800" />
                         </button>
                         
-                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                        <div className="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-1.5 sm:space-x-2">
                           {listing.photos.map((_, index) => (
                             <button
                               key={index}
                               onClick={() => setCurrentImageIndex(index)}
-                              className={`h-2 w-2 rounded-full ${
-                                index === currentImageIndex ? 'bg-primary' : 'bg-white bg-opacity-60'
+                              className={`p-2 touch-target focus:outline-none focus:ring-2 focus:ring-primary rounded-full ${
+                                index === currentImageIndex ? 'bg-primary scale-125' : 'bg-white bg-opacity-60'
                               }`}
                               aria-label={`Voir image ${index + 1}`}
-                            />
+                              aria-current={index === currentImageIndex ? 'true' : 'false'}
+                            >
+                              <span className={`block h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full transition-all ${
+                                index === currentImageIndex ? 'bg-white' : 'bg-current'
+                              }`} />
+                            </button>
                           ))}
                         </div>
                       </>
@@ -318,13 +323,13 @@ const ListingDetailPage: React.FC = () => {
               
               {/* Thumbnails */}
               {listing.photos && listing.photos.length > 1 && (
-                <div className="p-4 flex space-x-2 overflow-x-auto">
+                <div className="p-3 sm:p-4 flex space-x-2 overflow-x-auto smooth-scroll">
                   {listing.photos.map((photo, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 ${
-                        index === currentImageIndex ? 'border-primary' : 'border-transparent'
+                      className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden border-2 transition-all ${
+                        index === currentImageIndex ? 'border-primary scale-105' : 'border-grey-200'
                       }`}
                     >
                       <img 
@@ -339,40 +344,40 @@ const ListingDetailPage: React.FC = () => {
             </div>
             
             {/* Listing Details */}
-            <div className="bg-white rounded-card shadow-card p-6 mb-6">
-              <h1 className="text-2xl font-bold text-grey-900 mb-2">{listing.title}</h1>
+            <div className="bg-white rounded-card shadow-card p-4 sm:p-6 mb-6">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-grey-900 mb-2">{listing.title}</h1>
               
-              <p className="text-3xl font-bold text-primary mb-4">
+              <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary mb-4">
                 {formatPrice(listing.price)}
               </p>
               
-              <div className="flex flex-wrap gap-y-2 mb-6">
-                <div className="flex items-center mr-6">
-                  <MapPin className="h-5 w-5 text-grey-500 mr-1" />
+              <div className="flex flex-wrap gap-y-2 gap-x-4 mb-6 text-sm sm:text-base">
+                <div className="flex items-center">
+                  <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-grey-500 mr-1 flex-shrink-0" />
                   <span className="text-grey-700">{listing.district}</span>
                 </div>
                 
-                <div className="flex items-center mr-6">
-                  <Calendar className="h-5 w-5 text-grey-500 mr-1" />
+                <div className="flex items-center">
+                  <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-grey-500 mr-1 flex-shrink-0" />
                   <span className="text-grey-700">{formatDate(listing.created_at)}</span>
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
                 <div className="bg-grey-50 p-3 rounded-lg">
-                  <p className="text-sm text-grey-500">Catégorie</p>
-                  <p className="font-medium">{getCategoryLabel(listing.category)}</p>
+                  <p className="text-xs sm:text-sm text-grey-500 mb-1">Catégorie</p>
+                  <p className="font-medium text-sm sm:text-base">{getCategoryLabel(listing.category)}</p>
                 </div>
                 
                 <div className="bg-grey-50 p-3 rounded-lg">
-                  <p className="text-sm text-grey-500">État</p>
-                  <p className="font-medium">{getConditionLabel(listing.condition)}</p>
+                  <p className="text-xs sm:text-sm text-grey-500 mb-1">État</p>
+                  <p className="font-medium text-sm sm:text-base">{getConditionLabel(listing.condition)}</p>
                 </div>
               </div>
               
               <div className="mb-6">
-                <h2 className="text-lg font-semibold mb-2">Description</h2>
-                <p className="text-grey-700 whitespace-pre-line">{listing.description}</p>
+                <h2 className="text-base sm:text-lg lg:text-xl font-semibold mb-2 sm:mb-3">Description</h2>
+                <p className="text-grey-700 whitespace-pre-line text-sm sm:text-base leading-relaxed">{listing.description}</p>
               </div>
 
               {/* Bloc avis : affic hé si l'utilisateur est connecté, n'est pas le vendeur, et n'a pas déjà noté ce vendeur pour cette annonce */}
@@ -499,8 +504,8 @@ const ListingDetailPage: React.FC = () => {
           {/* Sidebar */}
           <div className="lg:col-span-1">
             {/* Seller Info */}
-            <div className="bg-white rounded-card shadow-card p-6 mb-6">
-              <h2 className="text-lg font-semibold mb-4">Vendeur</h2>
+            <div className="bg-white rounded-card shadow-card p-4 sm:p-6 mb-6">
+              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Vendeur</h2>
               
               <div className="flex items-center mb-4">
                 <Link to={`/profile/seller/${listing.seller.id}`} className="flex items-center group">
@@ -539,11 +544,11 @@ const ListingDetailPage: React.FC = () => {
               
               <button
                 onClick={handleContactSeller}
-                className="btn-primary w-full flex items-center justify-center mb-2"
+                className="btn-primary w-full flex items-center justify-center mb-2 min-h-[44px] text-sm sm:text-base"
                 disabled={listing.seller.id === user?.id}
               >
-                <MessageSquare className="h-5 w-5 mr-2" />
-                Contacter le vendeur (chat)
+                <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                <span className="truncate">Contacter le vendeur (chat)</span>
               </button>
               {listing.seller.phone && (
                 <a
@@ -557,14 +562,14 @@ const ListingDetailPage: React.FC = () => {
                   })()}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold transition mb-2"
+                  className="w-full flex items-center justify-center px-4 py-2.5 sm:py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold transition mb-2 min-h-[44px] text-sm sm:text-base"
                   title="Contacter sur WhatsApp"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 14.487c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.21-.242-.58-.487-.501-.67-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.099 3.21 5.077 4.377.71.306 1.263.489 1.695.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.288.173-1.413-.074-.124-.272-.198-.57-.347z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 12c0-4.97-4.03-9-9-9s-9 4.03-9 9c0 1.591.418 3.086 1.144 4.375L3 21l4.755-1.244A8.963 8.963 0 0012 21c4.97 0 9-4.03 9-9z" />
                   </svg>
-                  Contacter sur WhatsApp
+                  <span className="truncate">Contacter sur WhatsApp</span>
                 </a>
               )}
               {listing.seller.id === user?.id && (
@@ -576,25 +581,25 @@ const ListingDetailPage: React.FC = () => {
             
             {/* Similar Listings */}
             {similarListings.length > 0 && (
-              <div className="bg-white rounded-card shadow-card p-6">
-                <h2 className="text-lg font-semibold mb-4">Annonces similaires</h2>
-                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+              <div className="bg-white rounded-card shadow-card p-4 sm:p-6">
+                <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Annonces similaires</h2>
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   {similarListings.map((item) => (
                     <Link 
                       key={item.id} 
                       to={`/listings/${item.id}`}
-                      className="flex flex-col items-center hover:bg-grey-50 p-2 rounded-lg transition-colors border border-grey-100"
+                      className="flex flex-col items-center hover:bg-grey-50 p-2 sm:p-3 rounded-lg transition-colors border border-grey-100 min-h-[120px]"
                     >
-                      <div className="h-24 w-full rounded-md overflow-hidden flex-shrink-0 mb-2 flex items-center justify-center bg-grey-50">
+                      <div className="h-20 sm:h-24 w-full rounded-md overflow-hidden flex-shrink-0 mb-2 flex items-center justify-center bg-grey-50">
                         <img 
                           src={item.photos[0] || 'https://via.placeholder.com/96'} 
                           alt={item.title} 
-                          className="h-24 w-auto max-w-full object-cover"
+                          className="h-full w-auto max-w-full object-cover"
                         />
                       </div>
                       <div className="w-full text-center">
-                        <p className="font-medium line-clamp-1 text-sm mb-1">{item.title}</p>
-                        <p className="text-primary font-bold text-base">{formatPrice(item.price)}</p>
+                        <p className="font-medium line-clamp-2 text-xs sm:text-sm mb-1">{item.title}</p>
+                        <p className="text-primary font-bold text-sm sm:text-base">{formatPrice(item.price)}</p>
                       </div>
                     </Link>
                   ))}

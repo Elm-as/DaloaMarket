@@ -314,6 +314,10 @@ body, .no-select, .app-root, .container-custom, .bg-white, .rounded-card, .shado
 
   /* Touch-friendly interactive elements */
   .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  .touch-target-centered {
     @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
   }
 
