@@ -297,6 +297,21 @@ export const SupabaseProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       });
 
       if (!error) {
+        setUserProfile((current) => {
+          const base = current ?? {
+            id: user.id,
+            email: user.email || '',
+            phone: '',
+            full_name: '',
+            district: '',
+            created_at: new Date().toISOString(),
+            rating: null,
+            first_listing_at: null,
+            banned: false,
+            role: 'user',
+          };
+          return { ...base, ...profile };
+        });
         await fetchUserProfile(user.id);
       }
 
