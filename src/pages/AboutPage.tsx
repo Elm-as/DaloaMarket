@@ -38,6 +38,147 @@ const AboutPage: React.FC = () => (
         Ce projet est développé sans budget, uniquement avec ma connexion et ma détermination, pour aider la communauté locale.
       </p>
       <p className="mb-8">Merci à tous ceux qui soutiennent cette initiative locale 🙏</p>
+      
+      <h2 className="text-2xl font-bold mt-8 mb-4">Mes projets</h2>
+      
+      {/* Project 1: KlasNet */}
+      <div className="mb-6 p-4 border border-grey-200 rounded-lg hover:shadow-lg transition-shadow">
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="text-xl font-bold text-primary">Projet 1 : KlasNet</h3>
+          <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">✓ Complété</span>
+        </div>
+        <p className="text-sm text-grey-600 mb-2 font-semibold">Logiciel de Gestion Scolaire - École Primaire Côte d'Ivoire</p>
+        <a 
+          href="https://drive.google.com/file/d/1rj92hBaOWI9DgKegJKc76UOMW13kFDYk/view?usp=drive_link"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline hover:text-primary-600 text-sm mb-3 inline-block"
+        >
+          → Voir la démo
+        </a>
+        <p className="mb-3 text-grey-700">
+          Application web complète de gestion scolaire spécialement conçue pour les écoles primaires ivoiriennes. 
+          Le système gère tous les aspects administratifs : élèves, enseignants, classes, matières, finances, notes et bulletins.
+        </p>
+        <div className="mb-3">
+          <h4 className="font-semibold mb-2">✨ Fonctionnalités Principales :</h4>
+          <ul className="list-disc list-inside space-y-1 text-sm text-grey-700 ml-2">
+            <li><strong>Gestion des Élèves</strong> : Inscription avec matricule automatique, upload de photos, import/export Excel</li>
+            <li><strong>Gestion des Enseignants</strong> : Profils complets, assignation aux classes, suivi des salaires</li>
+            <li><strong>Gestion des Classes</strong> : Configuration par niveau (CP1, CP2, CE1, CE2, CM1, CM2)</li>
+            <li><strong>Système Financier</strong> : Suivi des paiements, génération de reçus automatiques, dashboard financier</li>
+            <li><strong>Système de Notes</strong> : Saisie par compositions (système ivoirien), calcul automatique des moyennes, génération de bulletins PDF</li>
+            <li><strong>Système de Licence Avancé</strong> : Fonctionnement hors ligne, protection anti-triche, types de licences multiples</li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="font-semibold mb-2">🔧 Technologies :</h4>
+          <p className="text-sm text-grey-700">React 18 + TypeScript, Tailwind CSS, Vite, Local Storage</p>
+        </div>
+      </div>
+
+      {/* Project 2: DaloaMarket */}
+      <div className="mb-6 p-4 border border-grey-200 rounded-lg hover:shadow-lg transition-shadow bg-orange-50">
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="text-xl font-bold text-primary">Projet 2 : DaloaMarket</h3>
+          <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">🚀 En cours</span>
+        </div>
+        <p className="text-sm text-grey-600 mb-2 font-semibold">Application mobile React Native - Première Marketplace P2P de Daloa</p>
+        <p className="mb-3 text-grey-700">
+          Application mobile React Native pour DaloaMarket, la première marketplace P2P de Daloa. 
+          Permet aux habitants de Daloa, notamment les étudiants, de vendre et d'acheter facilement des objets d'occasion entre eux.
+        </p>
+        <div className="mb-3">
+          <h4 className="font-semibold mb-2">🚀 Fonctionnalités :</h4>
+          <ul className="list-disc list-inside space-y-1 text-sm text-grey-700 ml-2">
+            <li><strong>Authentification</strong> : Inscription, connexion avec Supabase</li>
+            <li><strong>Annonces</strong> : Création, recherche, filtrage d'annonces</li>
+            <li><strong>Messagerie</strong> : Chat en temps réel entre utilisateurs</li>
+            <li><strong>Profil</strong> : Gestion du profil utilisateur</li>
+            <li><strong>Paiements</strong> : Intégration PayDunya pour les frais de publication</li>
+            <li><strong>Photos</strong> : Upload d'images via caméra ou galerie</li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="font-semibold mb-2">📱 Technologies :</h4>
+          <p className="text-sm text-grey-700">React Native avec Expo, TypeScript, Supabase, NativeWind (Tailwind CSS), Expo Router</p>
+        </div>
+      </div>
+
+      {/* Project 3: Medico-Dict */}
+      <div className="mb-6 p-4 border border-grey-200 rounded-lg hover:shadow-lg transition-shadow">
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="text-xl font-bold text-primary">Projet 3 : Medico-Dict</h3>
+          <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">✓ Complété</span>
+        </div>
+        <p className="text-sm text-grey-600 mb-2 font-semibold">Dictionnaire Médical avec +450 maladies</p>
+        <a 
+          href="https://medico-dict.netlify.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary underline hover:text-primary-600 text-sm mb-3 inline-block"
+        >
+          → Visiter Medico-Dict
+        </a>
+        <p className="mb-3 text-grey-700">
+          Dictionnaire médical complet avec plus de 450 maladies répertoriées. 
+          Offre des informations détaillées sur les symptômes, traitements, prévention et actions immédiates à prendre.
+        </p>
+        <div className="mb-3">
+          <h4 className="font-semibold mb-2">✨ Fonctionnalités :</h4>
+          <ul className="list-disc list-inside space-y-1 text-sm text-grey-700 ml-2">
+            <li><strong>Recherche avancée</strong> : Par nom de maladie, symptômes, ou partie du corps</li>
+            <li><strong>Fiches détaillées</strong> : Description complète, symptômes, niveau de gravité, âge concerné</li>
+            <li><strong>Actions immédiates</strong> : Guide étape par étape des actions à prendre en urgence</li>
+            <li><strong>Informations de prévention</strong> : Conseils pour éviter les maladies</li>
+            <li><strong>Traitements</strong> : Options de traitement disponibles</li>
+            <li><strong>Classification</strong> : Par gravité (critique, modéré, léger), contagiosité, etc.</li>
+          </ul>
+        </div>
+        <div>
+          <p className="text-xs text-grey-600 italic border-l-4 border-orange-400 pl-3 py-2 bg-orange-50 rounded">
+            ⚠️ <strong>Avertissement médical</strong> : Cette application est fournie à titre informatif uniquement et ne remplace pas une consultation médicale. 
+            En cas de symptômes, consultez toujours un professionnel de santé qualifié.
+          </p>
+        </div>
+      </div>
+
+      {/* Project 4: DataAnalyzer */}
+      <div className="mb-6 p-4 border border-grey-200 rounded-lg hover:shadow-lg transition-shadow">
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="text-xl font-bold text-primary">Projet 4 : DataAnalyzer</h3>
+          <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">✓ Complété</span>
+        </div>
+        <p className="text-sm text-grey-600 mb-2 font-semibold">Analyseur de Données Complet - Machine Learning & Deep Learning</p>
+        <p className="mb-3 text-grey-700">
+          Outil d'analyse de données puissant et complet qui permet d'effectuer des analyses statistiques avancées, 
+          du machine learning, et du deep learning sans avoir besoin d'écrire du code.
+        </p>
+        <div className="mb-3">
+          <h4 className="font-semibold mb-2">🚀 Fonctionnalités :</h4>
+          <ul className="list-disc list-inside space-y-1 text-sm text-grey-700 ml-2">
+            <li><strong>Analyses de Base</strong> : Statistiques descriptives, corrélations, distributions, détection d'anomalies</li>
+            <li><strong>Régression</strong> : Linéaire, polynomiale, Ridge, Lasso, ElasticNet, logistique</li>
+            <li><strong>Classification</strong> : KNN, SVM, Random Forest, Decision Tree, Naive Bayes, XGBoost, LightGBM, AdaBoost</li>
+            <li><strong>Réseaux de Neurones</strong> : MLP, Deep MLP, CNN, RNN, LSTM</li>
+            <li><strong>Séries Temporelles</strong> : ARIMA, SARIMA, Prophet</li>
+            <li><strong>Clustering</strong> : K-Means, DBSCAN, Hierarchical, GMM</li>
+            <li><strong>Nettoyage de Données</strong> : Gestion des valeurs manquantes, détection des outliers, normalisation, encodage</li>
+            <li><strong>Tests Statistiques</strong> : Shapiro-Wilk, T-test, ANOVA, Chi-carré, et plus</li>
+            <li><strong>Génération de Rapports PDF</strong> : Rapports professionnels A4 avec métriques détaillées</li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="font-semibold mb-2">🔧 Technologies :</h4>
+          <p className="text-sm text-grey-700 mb-2">
+            <strong>Frontend :</strong> React 18, TypeScript, TailwindCSS, Vite<br />
+            <strong>Backend :</strong> Flask, Pandas, NumPy, Scikit-learn, TensorFlow/Keras, Statsmodels, Prophet, XGBoost, LightGBM, ReportLab
+          </p>
+          <p className="text-xs text-grey-600 italic border-l-4 border-blue-400 pl-3 py-2 bg-blue-50 rounded">
+            🎓 <strong>Note pour Data Scientists</strong> : Cet outil génère les résultats et métriques. L'interprétation et la compréhension des résultats restent la responsabilité de l'utilisateur.
+          </p>
+        </div>
+      </div>
       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mt-8 text-center">
         <p className="font-bold text-lg mb-2">💛 Soutenir Daloa Market</p>
         <p className="mb-2 text-sm">Aidez à faire évoluer ce projet local développé avec 0 budget !</p>
