@@ -1,5 +1,5 @@
-/* Import Google font Inter (modern, readable) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+/* Import modern Google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 /* Désactive la sélection de texte sur tout le site */
 
@@ -91,46 +91,47 @@ body, .no-select, .app-root, .container-custom, .bg-white, .rounded-card, .shado
   }
   
   .btn-primary {
-    @apply bg-primary text-white font-semibold py-2.5 px-4 rounded-xl 
-           shadow-md hover:bg-primary-600 hover:shadow-lg focus:outline-none focus:ring-2 
-           focus:ring-primary-500 focus:ring-opacity-50 transition-all duration-200
-           disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5
-           text-sm sm:text-base sm:py-3 sm:px-6 sm:rounded-2xl;
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold py-3 px-6 rounded-button 
+           shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2
+           focus:ring-opacity-50 transition-all duration-300
+           disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5 hover:scale-105
+           text-sm sm:text-base active:scale-100;
   }
   
   .btn-secondary {
-    @apply bg-secondary text-white font-semibold py-2.5 px-4 rounded-xl 
-           shadow-md hover:bg-secondary-600 hover:shadow-lg focus:outline-none focus:ring-2 
-           focus:ring-secondary-500 focus:ring-opacity-50 transition-all duration-200
-           disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5
-           text-sm sm:text-base sm:py-3 sm:px-6 sm:rounded-2xl;
+    @apply bg-gradient-to-r from-secondary-600 to-secondary-700 text-white font-semibold py-3 px-6 rounded-button 
+           shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-secondary-400 focus:ring-offset-2
+           focus:ring-opacity-50 transition-all duration-300
+           disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5 hover:scale-105
+           text-sm sm:text-base active:scale-100;
   }
   
   .btn-outline {
-    @apply border border-grey-300 text-grey-700 font-semibold py-2.5 px-4 
-           rounded-xl shadow-sm hover:bg-grey-50 hover:border-grey-400 hover:shadow-md 
-           focus:outline-none focus:ring-2 focus:ring-grey-500 focus:ring-opacity-50 
-           transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed
-           transform hover:-translate-y-0.5 text-sm sm:text-base sm:py-3 sm:px-6 sm:rounded-2xl;
+    @apply border-2 border-grey-300 text-grey-700 font-semibold py-3 px-6 
+           rounded-button shadow-sm hover:bg-grey-50 hover:border-grey-400 hover:shadow-md 
+           focus:outline-none focus:ring-2 focus:ring-grey-400 focus:ring-offset-2 focus:ring-opacity-50 
+           transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed
+           transform hover:-translate-y-0.5 text-sm sm:text-base active:scale-100;
   }
   
   .input-field {
-    @apply w-full px-3 py-2.5 rounded-lg border border-grey-300 
-           focus:outline-none focus:ring-2 focus:ring-primary-500 
-           focus:border-primary-500 transition-all duration-200 bg-white
-           placeholder-grey-400 text-sm sm:text-base sm:px-4 sm:py-3 sm:rounded-xl;
+    @apply w-full px-4 py-3 rounded-xl border-2 border-grey-200 
+           focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-1
+           focus:border-primary-400 transition-all duration-300 bg-white
+           placeholder-grey-400 text-sm sm:text-base hover:border-grey-300;
   }
   
   .input-label {
-    @apply block text-sm font-semibold text-grey-700 mb-1.5 sm:mb-2;
+    @apply block text-sm font-semibold text-grey-700 mb-2;
   }
   
   .input-error {
-    @apply text-sm text-error-600 mt-1;
+    @apply text-sm text-error-600 mt-1.5;
   }
   
   .card {
-    @apply bg-white rounded-xl shadow-md p-4 border border-grey-100 sm:rounded-2xl sm:shadow-lg sm:p-6;
+    @apply bg-white rounded-card shadow-card p-6 border border-grey-100 
+           transition-all duration-300 hover:shadow-lg;
   }
 
   /* Mobile-first responsive cards */

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Clock, Star, Zap, ArrowRight } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -109,4 +109,4 @@ const ListingCard: React.FC<ListingCardProps> = ({ listing, onPress, sellerName,
   );
 };
 
-export default ListingCard;
+export default memo(ListingCard);

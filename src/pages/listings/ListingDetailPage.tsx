@@ -58,32 +58,33 @@ const ListingDetailPage: React.FC = () => {
       try {
         if (!id) return;
         
-        const { data, error } = await supabase
-          .from('listings')
-          .select(`
-            *,
-            seller:users!listings_user_id_fkey (*)
-          `)
-          .eq('id', id)
-          .single();
-        
-        if (error) throw error;
-        
-        setListing(data as ListingWithSeller);
-        
-        // Fetch similar listings
-        if (data) {
-          const { data: similarData, error: similarError } = await supabase
+        // Fetch both listing and similar listings in parallel
+        const [listingResult, similarResult] = await Promise.all([
+          supabase
+            .from('listings')
+            .select(`
+              *,
+              seller:users!listings_user_id_fkey (*)
+            `)
+            .eq('id', id)
+            .single(),
+          supabase
             .from('listings')
             .select('*')
-            .eq('category', data.category)
             .eq('status', 'active')
-            .neq('id', data.id)
-            .limit(4);
-          
-          if (!similarError && similarData) {
-            setSimilarListings(similarData);
-          }
+            .neq('id', id)
+            .limit(4)
+        ]);
+        
+        if (listingResult.error) throw listingResult.error;
+        
+        const listingData = listingResult.data as ListingWithSeller;
+        setListing(listingData);
+        
+        // Filter similar listings by category from the results
+        if (similarResult.data) {
+          const similar = similarResult.data.filter(l => l.category === listingData.category);
+          setSimilarListings(similar);
         }
       } catch (error) {
         console.error('Error fetching listing:', error);
@@ -273,7 +274,7 @@ const ListingDetailPage: React.FC = () => {
                     <img 
                       src={listing.photos[currentImageIndex]} 
                       alt={listing.title} 
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-cover"
                     />
                     
                     {listing.photos.length > 1 && (

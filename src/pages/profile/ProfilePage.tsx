@@ -39,42 +39,43 @@ const ProfilePage: React.FC = () => {
   
   useEffect(() => {
     if (!user) return;
+    
     const fetchUserData = async () => {
       try {
-        // Fetch user listings
-        const { data: listings, error: listingsError } = await supabase
-          .from('listings')
-          .select('*')
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: false });
-        if (listingsError) throw listingsError;
-        setUserListings(listings || []);
-
-        // Fetch user reviews
-        const { data: reviews, error: reviewsError } = await supabase
-          .from('reviews')
-          .select(`
-            *,
-            reviewer:users!reviews_reviewer_id_fkey (
-              full_name
-            ),
-            listing:listings!reviews_listing_id_fkey (
-              title
-            )
-          `)
-          .eq('reviewed_id', user.id)
-          .order('created_at', { ascending: false });
-        if (reviewsError) throw reviewsError;
-        setUserReviews(reviews || []);
-
-        // Fetch user favorites (jointure sur listings)
-        const { data: favorites, error: favError } = await supabase
-          .from('favorites')
-          .select('listing:listings(*)')
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: false });
-        if (favError) throw favError;
-        setUserFavorites((favorites || []).map(f => f.listing).filter(Boolean));
+        // Combine all queries to run in parallel for better performance
+        const [listingsResult, reviewsResult, favoritesResult] = await Promise.all([
+          supabase
+            .from('listings')
+            .select('*')
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false }),
+          supabase
+            .from('reviews')
+            .select(`
+              *,
+              reviewer:users!reviews_reviewer_id_fkey (
+                full_name
+              ),
+              listing:listings!reviews_listing_id_fkey (
+                title
+              )
+            `)
+            .eq('reviewed_id', user.id)
+            .order('created_at', { ascending: false }),
+          supabase
+            .from('favorites')
+            .select('listing:listings(*)')
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false })
+        ]);
+        
+        if (listingsResult.error) throw listingsResult.error;
+        if (reviewsResult.error) throw reviewsResult.error;
+        if (favoritesResult.error) throw favoritesResult.error;
+        
+        setUserListings(listingsResult.data || []);
+        setUserReviews(reviewsResult.data || []);
+        setUserFavorites((favoritesResult.data || []).map(f => f.listing).filter(Boolean));
       } catch (error) {
         console.error('Error fetching user data:', error);
         toast.error('Erreur lors du chargement des données');
@@ -82,6 +83,7 @@ const ProfilePage: React.FC = () => {
         setLoading(false);
       }
     };
+    
     fetchUserData();
   }, [user]);
   
