@@ -59,27 +59,7 @@ const HomePage: React.FC = () => {
     fetchLatestListings();
   }, []);
 
-  useEffect(() => {
-    const fetchCredits = async () => {
-      if (!user?.id || !isSupabaseConfigured) {
-        setUserCredits(null);
-        return;
-      }
-      // @ts-expect-error accès table custom
-      const { data, error } = await (supabase as unknown)
-        .from('user_credits')
-        .select('credits')
-        .eq('user_id', user.id)
-        .single();
-      if (error) {
-        setUserCredits(null);
-      } else {
-        setUserCredits(data?.credits ?? 0);
-      }
-    };
-    fetchCredits();
-  }, [user]);
-
+  // Removed credits fetching to improve performance - credits widget is hidden anyway
   useEffect(() => {
     if (localStorage.getItem('credit_purchase_pending')) {
       toast.success('Crédits ajoutés à votre compte !');
