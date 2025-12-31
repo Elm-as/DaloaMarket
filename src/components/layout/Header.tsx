@@ -23,68 +23,70 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 shadow-lg border-b border-grey-100 bg-white/90 md:bg-white/95 backdrop-blur-md">
-      <div className="container-custom py-0 sm:py-3 lg:py-4">
-        <div className="flex items-center justify-between md:justify-between">
-          {/* Logo à gauche */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center group flex-shrink-0">
-              <div className="h-8 w-8 sm:h-8 sm:w-8 lg:h-10 lg:w-10 bg-gradient-to-br from-primary to-primary-600 rounded-xl flex items-center justify-center mr-2 group-hover:scale-105 transition-transform shadow-md">
-                <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-white" />
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-lg border-b border-grey-200 shadow-sm">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 lg:py-4">
+        <div className="flex items-center justify-between gap-4">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link to="/" className="flex items-center group">
+              <div className="h-10 w-10 lg:h-12 lg:w-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mr-2.5 group-hover:scale-105 transition-transform shadow-md group-hover:shadow-lg">
+                <ShoppingBag className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
               </div>
-              <span className="text-lg lg:text-xl font-bold text-grey-900 leading-none">DaloaMarket</span>
-              <div className="scale-75 sm:scale-100 origin-left ml-1">
-                <BetaBadge />
+              <div className="flex items-center gap-2">
+                <span className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-grey-900 to-grey-700 bg-clip-text text-transparent">
+                  DaloaMarket
+                </span>
+                <div className="scale-90 lg:scale-100">
+                  <BetaBadge />
+                </div>
               </div>
             </Link>
           </div>
 
-          {/* Search Bar (hidden on mobile) */}
-          <div className="hidden md:block flex-1 max-w-lg mx-4 lg:mx-8">
+          {/* Desktop Search Bar */}
+          <div className="hidden md:block flex-1 max-w-xl">
             <form onSubmit={handleSearch} className="relative">
               <input
                 type="text"
                 placeholder="Rechercher un produit..."
-                className="w-full py-2 lg:py-2.5 pl-9 lg:pl-10 pr-3 lg:pr-4 rounded-lg lg:rounded-xl border border-grey-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-grey-50 focus:bg-white transition-all text-sm lg:text-base"
+                className="w-full py-2.5 lg:py-3 pl-11 pr-4 rounded-xl border-2 border-grey-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-400 bg-grey-50 focus:bg-white transition-all text-sm lg:text-base placeholder-grey-400"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <Search className="absolute left-2.5 lg:left-3 top-2 lg:top-2.5 h-4 w-4 lg:h-5 lg:w-5 text-grey-400" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-grey-400" />
               <button
                 type="submit"
-                className="absolute right-1 lg:right-1.5 top-0.5 lg:top-1 bg-primary text-white py-1.5 lg:py-2 px-2.5 lg:px-3 rounded-md lg:rounded-lg hover:bg-primary-600 transition-colors font-medium text-xs lg:text-sm"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-primary-500 to-primary-600 text-white py-1.5 lg:py-2 px-3 lg:px-4 rounded-lg hover:from-primary-600 hover:to-primary-700 transition-all font-medium text-xs lg:text-sm shadow-sm hover:shadow-md"
               >
                 Rechercher
               </button>
             </form>
           </div>
 
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             <Link 
               to="/search" 
-              className="p-2 lg:p-2.5 rounded-lg text-grey-700 hover:text-primary hover:bg-primary-50 transition-all touch-target"
+              className="p-2.5 rounded-xl text-grey-600 hover:text-primary-600 hover:bg-primary-50 transition-all"
               title="Rechercher"
             >
               <Search className="h-5 w-5 lg:h-6 lg:w-6" />
             </Link>
             <Link 
               to="/about"
-              className="p-2 lg:p-2.5 rounded-lg text-grey-700 hover:text-primary hover:bg-primary-50 transition-all touch-target"
-              title="À propos"
+              className="px-3 py-2 rounded-xl text-grey-600 hover:text-primary-600 hover:bg-primary-50 transition-all font-medium text-sm"
             >
               À propos
             </Link>
             <Link
               to="/help"
-              className="p-2 lg:p-2.5 rounded-lg text-grey-700 hover:text-primary hover:bg-primary-50 transition-all touch-target"
-              title="Aide & Support"
+              className="px-3 py-2 rounded-xl text-grey-600 hover:text-primary-600 hover:bg-primary-50 transition-all font-medium text-sm"
             >
               Aide
             </Link>
             <Link 
               to="/messages" 
-              className="p-2 lg:p-2.5 rounded-lg text-grey-700 hover:text-primary hover:bg-primary-50 transition-all relative touch-target"
+              className="p-2.5 rounded-xl text-grey-600 hover:text-primary-600 hover:bg-primary-50 transition-all relative"
               title="Messages"
             >
               <MessageSquare className="h-5 w-5 lg:h-6 lg:w-6" />
@@ -92,24 +94,24 @@ const Header: React.FC = () => {
             {user ? (
               <Link 
                 to="/profile" 
-                className="p-2 lg:p-2.5 rounded-lg text-grey-700 hover:text-primary hover:bg-primary-50 transition-all touch-target"
+                className="p-2.5 rounded-xl text-grey-600 hover:text-primary-600 hover:bg-primary-50 transition-all"
                 title="Mon profil"
               >
                 <User className="h-5 w-5 lg:h-6 lg:w-6" />
               </Link>
             ) : (
-              <Link to="/login" className="btn-outline py-2 px-3 lg:py-2 lg:px-4 ml-2 text-xs lg:text-sm">
+              <Link to="/login" className="btn-outline py-2 px-4 text-sm ml-2">
                 Connexion
               </Link>
             )}
-            <Link to="/create-listing" className="btn-primary py-2 lg:py-2.5 px-3 lg:px-4 ml-2 font-semibold text-xs lg:text-sm">
+            <Link to="/create-listing" className="btn-primary py-2 px-4 text-sm ml-2 shadow-md hover:shadow-lg">
               Vendre
             </Link>
           </nav>
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden p-2 rounded-full bg-white/80 shadow-md text-grey-700 hover:bg-primary-50 transition-colors touch-target flex-shrink-0 ml-2" 
+            className="md:hidden p-2.5 rounded-xl bg-grey-50 text-grey-700 hover:bg-primary-50 hover:text-primary-600 transition-all" 
             onClick={toggleMenu}
             aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           >
@@ -117,20 +119,20 @@ const Header: React.FC = () => {
           </button>
         </div>
 
-        {/* Mobile Search (visible only on mobile) */}
-        <div className="mt-2 md:hidden">
+        {/* Mobile Search */}
+        <div className="mt-3 md:hidden">
           <form onSubmit={handleSearch} className="relative">
             <input
               type="text"
               placeholder="Rechercher un produit..."
-              className="w-full py-2.5 pl-9 pr-3 rounded-lg border border-grey-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white/80 focus:bg-white transition-all text-sm shadow-sm"
+              className="w-full py-3 pl-11 pr-4 rounded-xl border-2 border-grey-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-primary-400 bg-grey-50 focus:bg-white transition-all text-sm shadow-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-grey-400" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-grey-400" />
             <button
               type="submit"
-              className="absolute right-1.5 top-1 bg-primary text-white py-1.5 px-3 rounded-md hover:bg-primary-600 transition-colors text-xs font-medium"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-primary-500 to-primary-600 text-white py-2 px-3 rounded-lg hover:from-primary-600 hover:to-primary-700 transition-all text-xs font-medium shadow-sm"
             >
               Rechercher
             </button>
