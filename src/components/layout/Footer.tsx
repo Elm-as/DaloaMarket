@@ -124,7 +124,6 @@ const Footer: React.FC = () => {
                 &copy; {new Date().getFullYear()} DaloaMarket. Tous droits réservés.
               </p>
               <div className="inline-flex items-start gap-2 bg-gradient-to-r from-warning-900/30 to-warning-800/30 border border-warning-600/30 rounded-xl p-4">
-                <span className="text-lg">⚠️</span>
                 <p className="text-xs text-warning-300 leading-relaxed text-left">
                   <strong>Version Bêta</strong> - Projet étudiant en développement. 
                   Aucune structure juridique formelle n'a encore été créée.

@@ -41,7 +41,7 @@ const AboutPage: React.FC = () => (
             Le projet est actuellement en <span className="text-primary-600 font-semibold">phase de test (bêta)</span> à l'université de Daloa, avant un lancement officiel plus large.
           </p>
           <p className="text-lg text-grey-700 leading-relaxed">
-            <span className="font-semibold text-grey-900">Il n'y a plus de système de boost ni de paiement automatique.</span> Toutes les publications d'annonces se font par crédit ou paiement manuel à l'unité (200 FCFA/annonce).
+            La plateforme est <span className="font-semibold text-grey-900">entièrement gratuite</span> pour publier vos annonces et connecter avec des acheteurs locaux.
           </p>
         </motion.div>
 
@@ -52,19 +52,14 @@ const AboutPage: React.FC = () => (
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center">
-              <span className="text-2xl">⚠️</span>
-            </div>
-            <div>
-              <p className="text-warning-900 font-semibold mb-2">Phase de test</p>
-              <p className="text-warning-800 text-sm leading-relaxed">
-                La plateforme évolue rapidement grâce à vos retours. Certaines fonctionnalités ou conditions peuvent changer sans préavis.
-              </p>
-              <p className="text-warning-800 text-sm mt-2">
-                <strong>Aucune structure juridique formelle n'est encore créée.</strong> L'activité reste à petite échelle et s'adapte selon les retours des utilisateurs.
-              </p>
-            </div>
+          <div>
+            <p className="text-warning-900 font-semibold mb-2">Phase de test</p>
+            <p className="text-warning-800 text-sm leading-relaxed">
+              La plateforme évolue rapidement grâce à vos retours. Certaines fonctionnalités ou conditions peuvent changer sans préavis.
+            </p>
+            <p className="text-warning-800 text-sm mt-2">
+              <strong>Aucune structure juridique formelle n'est encore créée.</strong> L'activité reste à petite échelle et s'adapte selon les retours des utilisateurs.
+            </p>
           </div>
         </motion.div>
 
@@ -127,7 +122,7 @@ const AboutPage: React.FC = () => (
           
           <div className="bg-gradient-to-br from-primary-50 to-secondary-50 p-6 rounded-2xl border-2 border-primary-200 mb-6">
             <p className="text-grey-700 leading-relaxed mb-4">
-              Je m'appelle <strong className="text-grey-900">Elmas Oulobo</strong>, étudiant en L3 Économie, passionné de programmation et de développement web.
+              Je m'appelle <strong className="text-grey-900">Elmas Oulobo</strong>, étudiant en M1 Data Science, passionné de programmation et de développement web.
             </p>
             <p className="text-grey-700 leading-relaxed">
               Ce projet est développé sans budget, uniquement avec ma connexion et ma détermination, pour aider la communauté locale.
@@ -135,7 +130,7 @@ const AboutPage: React.FC = () => (
           </div>
           
           <p className="text-lg text-center text-grey-700 font-medium">
-            Merci à tous ceux qui soutiennent cette initiative locale 🙏
+            Merci à tous ceux qui soutiennent cette initiative locale
           </p>
         </motion.div>
 
@@ -149,7 +144,7 @@ const AboutPage: React.FC = () => (
           <div className="w-16 h-16 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
             <Heart className="w-8 h-8 text-white" />
           </div>
-          <p className="font-bold text-2xl mb-3 text-grey-900">💛 Soutenir Daloa Market</p>
+          <p className="font-bold text-2xl mb-3 text-grey-900">Soutenir Daloa Market</p>
           <p className="mb-4 text-grey-700">Aidez à faire évoluer ce projet local développé avec 0 budget !</p>
           <p className="mb-2 text-grey-800">
             Envoyez un petit geste via <strong>Orange Money/Wave</strong> au <strong className="text-primary-600">+225 07 88 00 08 31</strong>
@@ -157,7 +152,7 @@ const AboutPage: React.FC = () => (
           <p className="text-grey-800">
             ou <strong>MTN</strong> au <strong className="text-primary-600">05 55 86 39 53</strong>
           </p>
-          <p className="text-sm text-grey-600 mt-4">Merci pour votre soutien 🙏</p>
+          <p className="text-sm text-grey-600 mt-4">Merci pour votre soutien</p>
         </motion.div>
       </motion.div>
     </div>

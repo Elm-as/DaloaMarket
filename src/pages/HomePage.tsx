@@ -140,7 +140,7 @@ const HomePage: React.FC = () => {
               className="mb-6"
             >
               <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium mb-6">
-                🎉 Plateforme 100% locale
+                Plateforme 100% locale
               </span>
             </motion.div>
             
@@ -177,7 +177,7 @@ const HomePage: React.FC = () => {
                 transition={{ delay: 0.5, duration: 0.4 }}
                 className="mb-8 p-4 bg-warning-50 border-2 border-warning-400 rounded-xl max-w-md mx-auto backdrop-blur-sm"
               >
-                <p className="text-warning-800 font-semibold mb-3 text-lg">⚠️ Profil incomplet</p>
+                <p className="text-warning-800 font-semibold mb-3 text-lg">Profil incomplet</p>
                 <Link to="/complete-profile" className="btn-primary bg-warning-600 hover:bg-warning-700">
                   Compléter mon profil
                 </Link>
@@ -471,8 +471,8 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Credits Display */}
-      {user && (
+      {/* Credits Display - Hidden for now (free platform) */}
+      {false && user && (
         <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
           <motion.div
             className="bg-white rounded-2xl shadow-2xl px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 border-2 border-primary-200 backdrop-blur-sm"
