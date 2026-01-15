@@ -5,7 +5,7 @@
 **Version française :**
 > "DaloaMarket, c'est OLX mais juste pour Daloa. Achète et vends près de chez toi."
 
-**Version nouchi (cool) :**
+**Version nouchi (cool - langage ivoirien familier) :**
 > "DaloaMarket là, tu go vendre tes go, acheter tes go, tout ça à Daloa même. Genre petit Facebook Marketplace pour nous là."
 
 ---

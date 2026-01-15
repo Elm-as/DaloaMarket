@@ -174,9 +174,9 @@ Téléphone : Samsung Galaxy A12
 ```
 
 ### 📩 Où envoyer les bugs ?
-- **WhatsApp** : [Numéro du développeur]
+- **WhatsApp** : [À définir par le développeur]
 - **Email** : oulobotresorelmas@gmail.com
-- **Groupe testeurs** : [Lien groupe WhatsApp]
+- **Groupe testeurs** : [Lien groupe WhatsApp à créer]
 
 ---
 
@@ -287,8 +287,8 @@ Le formulaire est anonyme, sois 100% honnête !
 
 ### 🆘 Besoin d'aide ?
 - **Email** : oulobotresorelmas@gmail.com
-- **WhatsApp** : [Numéro]
-- **Groupe testeurs** : [Lien]
+- **WhatsApp** : [À définir par le développeur]
+- **Groupe testeurs** : [Lien groupe WhatsApp à créer]
 
 ### 💬 Temps de réponse
 En général sous 2-3 heures (sauf la nuit 😴)

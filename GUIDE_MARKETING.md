@@ -1,5 +1,16 @@
 # 🚀 Guide Marketing DaloaMarket - Test Campus
 
+## ⚙️ Configuration Initiale
+
+**Avant de commencer, remplis ces informations (tu les utiliseras dans les autres documents) :**
+- **Ton numéro WhatsApp** : [À remplir]
+- **Lien de l'app web** : https://daloamarket.com
+- **Lien de l'app mobile** : [À remplir si disponible]
+- **Email contact** : oulobotresorelmas@gmail.com
+- **Durée du test choisie** : [ ] 2 semaines   [ ] 1-2 mois
+
+---
+
 ## Vue d'ensemble
 
 **DaloaMarket** est la première marketplace peer-to-peer de Daloa. C'est comme un **petit frère de Facebook Marketplace** ou **OLX**, mais **focalisé sur Daloa** avec des quartiers spécifiques.

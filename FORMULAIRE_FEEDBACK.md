@@ -95,7 +95,7 @@ Objectif : comprendre la couverture géographique et les besoins
 Objectif : valider le pricing et la perception de valeur
 ```
 
-### Question 3.1 : Serais-tu prêt(e) à payer 200F pour être contacté(e) plus vite par un client ?
+### Question 3.1 : Serais-tu prêt(e) à payer 200 FCFA pour être contacté(e) plus vite par un client ?
 - **Type** : Choix multiple (une seule réponse)
 - **Obligatoire** : ✅ OUI
 - **Options** :
@@ -112,7 +112,7 @@ Objectif : valider le pricing et la perception de valeur
 
 ---
 
-### Question 3.3 : Pour toi, 200F c'est :
+### Question 3.3 : Pour toi, 200 FCFA c'est :
 - **Type** : Échelle linéaire
 - **Obligatoire** : ❌ NON
 - **Échelle** : 1 à 5
