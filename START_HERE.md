@@ -2,7 +2,7 @@
 
 ## 👋 Bienvenue !
 
-Tu as demandé de l'aide pour le marketing de DaloaMarket. J'ai créé **6 documents complets** pour toi.
+Tu as demandé de l'aide pour le marketing de DaloaMarket. J'ai créé **7 documents complets** pour toi.
 
 ---
 
@@ -34,7 +34,8 @@ Envoie un message à ton premier testeur potentiel.
 
 | Document | Pour qui ? | Description |
 |----------|-----------|-------------|
-| **[SUMMARY_MARKETING.md](./SUMMARY_MARKETING.md)** | TOI | Résumé de livraison - commence ici ! |
+| **[START_HERE.md](./START_HERE.md)** | TOI | Commence ici - Quick start ⭐ |
+| **[SUMMARY_MARKETING.md](./SUMMARY_MARKETING.md)** | TOI | Résumé de livraison |
 | **[README_MARKETING.md](./README_MARKETING.md)** | TOI | Navigation et organisation |
 | **[GUIDE_MARKETING.md](./GUIDE_MARKETING.md)** | TOI | Stratégie marketing complète ⭐ |
 | **[PITCH_RAPIDE.md](./PITCH_RAPIDE.md)** | TOI | Scripts de présentation |
@@ -116,6 +117,6 @@ Tu peux le faire ! 💪
 
 ---
 
-_Toute la doc fait 2,100+ lignes sur 6 fichiers._  
+_Toute la doc fait 2,100+ lignes sur 7 fichiers._  
 _Créée spécialement pour ton test campus de DaloaMarket._  
 _Version 1.0 - Janvier 2026_

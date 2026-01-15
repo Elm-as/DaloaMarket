@@ -105,7 +105,7 @@ Si tu veux motiver tes amis :
 - "Tu seras parmi les premiers utilisateurs"
 - "Ton feedback va directement influencer le produit"
 - "Si ça marche, tu pourras dire 'j'étais là au début' 😄"
-- (Si budget) "Je peux offrir les frais de publication (200F) pour vos tests"
+- (Si budget) "Je peux offrir les frais de publication (200 FCFA) pour vos tests"
 
 ---
 
@@ -339,7 +339,7 @@ Semaine 7-8 : Collecte feedback + Analyse
 
 ### ✅ Remerciements
 - Message de remerciement personnel à chaque testeur
-- Petit cadeau symbolique ? (badge "Beta Tester", crédit gratuit 500F)
+- Petit cadeau symbolique ? (badge "Beta Tester", crédit gratuit 500 FCFA)
 - Invitation à rester sur l'app (version publique)
 
 ### 📊 Analyse & Pivot

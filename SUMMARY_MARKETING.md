@@ -2,7 +2,7 @@
 
 ## ✅ Ce qui a été créé pour toi
 
-J'ai créé **5 documents complets** (1,800+ lignes) pour t'aider à lancer ton test campus de DaloaMarket :
+J'ai créé **7 documents complets** (2,100+ lignes) pour t'aider à lancer ton test campus de DaloaMarket :
 
 ---
 

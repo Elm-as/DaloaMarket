@@ -277,13 +277,13 @@ Contact : oulobotresorelmas@gmail.com
 
 #### 3. Pricing (Section 3)
 **Questions à se poser :**
-- Les gens sont-ils prêts à payer 200F ?
+- Les gens sont-ils prêts à payer 200 FCFA ?
 - Score moyen prix (échelle 1-5) : est-ce perçu comme cher ?
 - Quelles sont les objections principales ?
 
 **Actions selon résultats :**
 - **Si > 60% "Oui"** : pricing validé ✅
-- **Si score < 3/5** : considérer baisser à 100F ou offrir annonces gratuites
+- **Si score < 3/5** : considérer baisser à 100 FCFA ou offrir annonces gratuites
 - **Si objection = "pas assez d'utilisateurs"** : c'est un problème de traction, pas de prix
 
 ---
@@ -352,7 +352,7 @@ Nombre de réponses                | __/10    | 10/10    | ✅/❌
 % Utilisent vraiment (pas test)   | __%      | >60%     | ✅/❌
 % Utilisent 4+ fois               | __%      | >40%     | ✅/❌
 % Quartier présent                | __%      | >70%     | ✅/❌
-% Prêts à payer 200F              | __%      | >60%     | ✅/❌
+% Prêts à payer 200 FCFA         | __%      | >60%     | ✅/❌
 Score moyen prix (1-5)            | __/5     | >3/5     | ✅/❌
 Score moyen satisfaction (1-5)    | __/5     | >3.5/5   | ✅/❌
 % Ont rencontré un bug            | __%      | <40%     | ✅/❌
